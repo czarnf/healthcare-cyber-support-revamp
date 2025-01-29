@@ -4,8 +4,14 @@ import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Cloud, Sun, CloudRain, Loader2 } from "lucide-react"
 
+interface Weather {
+  temperature: number;
+  condition: string;
+  humidity: number;
+}
+
 export function WeatherWidget() {
-  const [weather, setWeather] = useState(null)
+  const [weather, setWeather] = useState<Weather | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -38,15 +44,21 @@ export function WeatherWidget() {
       </CardHeader>
       <CardContent>
         <div className="flex items-center justify-between">
-          <div>
-            <p className="text-3xl font-bold">{weather.temperature}°C</p>
-            <p className="text-muted-foreground">{weather.condition}</p>
-            <p className="text-sm text-muted-foreground">Humidity: {weather.humidity}%</p>
-          </div>
+          {weather && (
+            <div>
+              {weather && (
+                <>
+                  <p className="text-3xl font-bold">{weather.temperature}°C</p>
+                  <p className="text-muted-foreground">{weather.condition}</p>
+                  <p className="text-sm text-muted-foreground">Humidity: {weather.humidity}%</p>
+                </>
+              )}
+            </div>
+          )}
           <div className="text-blue-500 dark:text-blue-400">
-            {weather.condition.toLowerCase().includes("cloud") ? (
+            {weather && weather.condition.toLowerCase().includes("cloud") ? (
               <Cloud className="h-16 w-16" />
-            ) : weather.condition.toLowerCase().includes("rain") ? (
+            ) : weather && weather.condition.toLowerCase().includes("rain") ? (
               <CloudRain className="h-16 w-16" />
             ) : (
               <Sun className="h-16 w-16 text-yellow-400" />
