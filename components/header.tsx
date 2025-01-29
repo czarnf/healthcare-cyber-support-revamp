@@ -28,7 +28,7 @@ export default function Header() {
           <div className="flex items-center">
             <Link href="/">
               <span className="sr-only">Healthcare Cyber Support</span>
-            
+              <img className="h-10 w-auto" src="\public\Healthcare-cyber-support.png" alt="Logo" />
             </Link>
           </div>
           <div className="hidden md:flex md:items-center md:space-x-6">
